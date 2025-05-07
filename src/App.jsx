@@ -1,11 +1,9 @@
-import MyCard from './components/MyCard'
+import Home from './pages/Home';
 import { getInvoices } from './request'
 
 export default function App() {
   getInvoices();
   return (
-    <div>
-    <MyCard />
-  </div>
+   <Home />
   )
 }
