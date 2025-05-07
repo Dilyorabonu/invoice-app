@@ -6,12 +6,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { buttonVariants } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { ArrowBigDown, PlusCircleIcon } from "lucide-react";
+import { useAppStore } from "../lib/zustand";
 
 export default function Header() {
+  const {setFilter} = useAppStore();
   const [items, setItems] = useState({
     draft: true, 
     paid: true, 
@@ -23,6 +25,10 @@ export default function Header() {
       return {...prev, [key]: !prev[key]}
     })
   }
+
+  useEffect(() => {
+    setFilter;
+  }, [JSON.stringify(items)]);
 
   return (
     <header>
