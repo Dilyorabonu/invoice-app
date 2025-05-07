@@ -1,8 +1,6 @@
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -10,20 +8,21 @@ import StatusBadje from "./StatusBadje";
 import { ArrowRight } from "lucide-react";
 
 export default function MyCard({
-  id = "RT3080",
-  date = "Due 19 Aug 2021",
-  name = "Jensen Huang",
-  price = "1,800.90",
+  invoiceId = "RT3080",
+  createdAt = "Due 19 Aug 2021",
+  clientName = "Jensen Huang",
+  total = "1,800.90",
   status = "draft",
+  key,
 }) {
   return (
-    <Card>
+    <Card key={key}>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle>#{id}</CardTitle>
-          <CardDescription>{date}</CardDescription>
-          <span>{name}</span>
-          <span>£{price}</span>
+          <CardTitle>#{invoiceId}</CardTitle>
+          <CardDescription>{createdAt}</CardDescription>
+          <span>{clientName}</span>
+          <span>£{total}</span>
           <StatusBadje status={status}/>
           <ArrowRight className="text-[#7C5DFA]"/>
         </div>

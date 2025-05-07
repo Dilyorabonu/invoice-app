@@ -6,10 +6,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { buttonVariants } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
-import { queryGenerator } from "../lib/utils";
+import { ArrowBigDown, PlusCircleIcon } from "lucide-react";
 
 export default function Header() {
   const [items, setItems] = useState({
@@ -24,23 +24,22 @@ export default function Header() {
     })
   }
 
-  useEffect(()=> {
-    const result = queryGenerator(items)
-  }, [items.draft, items.paid, items.pending])
-
   return (
     <header>
-      <div className="container">
+      <div className="base-container flex items-center justify-between py-10">
         <div>
           <h1>Invoices</h1>
           <p>There are 7 total invoices</p>
         </div>
         <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">Open</Button>
+        <Button className={"ml-auto mr-10"} variant="ghost">
+          Filter by status
+          <ArrowBigDown />
+          </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+        <DropdownMenuLabel>Statuses</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className="flex flex-col">
           {Object.entries(items).map(([key, value]) => {
@@ -61,6 +60,10 @@ export default function Header() {
         </div>
       </DropdownMenuContent>
     </DropdownMenu>
+    <Button>
+      <PlusCircleIcon/>
+      New Invoice
+    </Button>
       </div>
     </header>
   )
