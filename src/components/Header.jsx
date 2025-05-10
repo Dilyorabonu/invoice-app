@@ -1,34 +1,36 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { useEffect, useState } from "react"
+} from "@/components/ui/dropdown-menu";
+import { useEffect, useState } from "react";
 import { buttonVariants } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { ArrowBigDown, PlusCircleIcon } from "lucide-react";
 import { useAppStore } from "../lib/zustand";
+import { queryGenerator } from "../lib/utils";
 
 export default function Header() {
-  const {setFilter} = useAppStore();
+  const { setFilter } = useAppStore();
   const [items, setItems] = useState({
-    draft: true, 
-    paid: true, 
-    pending: false});
-  
+    draft: true,
+    paid: true,
+    pending: true,
+  });
+
   function handleChange(key) {
-    
     setItems((prev) => {
-      return {...prev, [key]: !prev[key]}
-    })
+      return { ...prev, [key]: !prev[key] };
+    });
   }
 
   useEffect(() => {
-    setFilter;
-  }, [JSON.stringify(items)]);
+    const query = queryGenerator(items);
+    setFilter(query);
+  }, [items]);
 
   return (
     <header>
@@ -38,39 +40,42 @@ export default function Header() {
           <p>There are 7 total invoices</p>
         </div>
         <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button className={"ml-auto mr-10"} variant="ghost">
-          Filter by status
-          <ArrowBigDown />
-          </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>Statuses</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <div className="flex flex-col">
-          {Object.entries(items).map(([key, value]) => {
-            return (
-            <label 
-            key={key}
-            className={`${buttonVariants({ variant: "ghost"})} 
-            justify-start capitalize`} htmlFor={key}>
-              <Checkbox
-              value={key}
-              checked={value}
-              onCheckedChange={() => handleChange(key)}
-              id={key}
-              />{key}
-            </label>
-            )
-          })}
-        </div>
-      </DropdownMenuContent>
-    </DropdownMenu>
-    <Button>
-      <PlusCircleIcon/>
-      New Invoice
-    </Button>
+          <DropdownMenuTrigger asChild>
+            <Button className={"ml-auto mr-10"} variant="ghost">
+              Filter by status
+              <ArrowBigDown />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel>Statuses</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <div className="flex flex-col">
+              {Object.entries(items).map(([key, value]) => {
+                return (
+                  <label
+                    key={key}
+                    className={`${buttonVariants({ variant: "ghost" })} 
+            justify-start capitalize`}
+                    htmlFor={key}
+                  >
+                    <Checkbox
+                      value={key}
+                      checked={value}
+                      onCheckedChange={() => handleChange(key)}
+                      id={key}
+                    />
+                    {key}
+                  </label>
+                );
+              })}
+            </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Button>
+          <PlusCircleIcon />
+          New Invoice
+        </Button>
       </div>
     </header>
-  )
+  );
 }

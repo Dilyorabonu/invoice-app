@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { twMerge } from "tailwind-merge"
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -10,11 +10,11 @@ export function queryGenerator(obj) {
   Object.entries(obj).forEach(([key, value]) => {
     if (value) {
       if (result === "") {
-        result += `${key}`
+        result += `${key}`;
       } else {
-        result += `|${key}`
+        result += `|${key}`;
       }
     }
-  })
+  });
   return result;
 }

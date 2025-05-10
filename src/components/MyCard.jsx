@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/card";
 import StatusBadje from "./StatusBadje";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function MyCard({
   invoiceId = "RT3080",
@@ -13,18 +14,22 @@ export default function MyCard({
   clientName = "Jensen Huang",
   total = "1,800.90",
   status = "draft",
-  key,
+  id="1",
 }) {
+  const navigate = useNavigate();
   return (
-    <Card key={key}>
+    <Card onClick={()=>{
+      navigate(`/${id}`)
+    }}
+     className="border-2 border-transparent hover:border-blue-400 transition-colors">
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>#{invoiceId}</CardTitle>
           <CardDescription>{createdAt}</CardDescription>
           <span>{clientName}</span>
           <span>£{total}</span>
-          <StatusBadje status={status}/>
-          <ArrowRight className="text-[#7C5DFA]"/>
+          <StatusBadje status={status} />
+          <ArrowRight className="text-[#7C5DFA]" />
         </div>
       </CardHeader>
     </Card>

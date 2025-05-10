@@ -12,8 +12,8 @@ export async function getInvoices(route = "/invoices", query = "") {
   }
 }
 //Get by id
-export async function getInvoice(id) {
-  const req = await fetch(baseURL + `/${id}`);
+export async function getInvoice(route = "/invoices", id) {
+  const req = await fetch(baseURL + route + `/${id}`);
 
   if (req.status === 200) {
     const result = await req.json();

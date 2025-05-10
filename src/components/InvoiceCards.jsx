@@ -3,48 +3,56 @@ import { getInvoices } from "../request";
 import CardSkleton from "../components/CardSkleton";
 import MyCard from "../components/MyCard";
 import { useAppStore } from "../lib/zustand";
-
+import NotFoundComponent from "./NotFoundComponent";
 
 export default function InvoiceCards() {
-  const {filter} = useAppStore()
-    const [loading, setLoading] = useState(false);
-      const [error, setError] = useState(false);
-      const [invoices, setInvoices] = useState([]);
-      
-      useEffect(() => {
-        setLoading(true);
-        getInvoices("/invoices", filter)
+  const { filter } = useAppStore();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [invoices, setInvoices] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    getInvoices("/invoices", filter)
       .then((res) => {
-        setInvoices(res)
+        setInvoices(res);
       })
-      .catch(({message}) => {
-        setError(message)
+      .catch(({ message }) => {
+        setError(message);
       })
       .finally(() => {
-        setLoading(false)
+        setLoading(false);
       });
-      }, []);
-    
-      if(loading) {
-        return <CardSkleton />
-      }
-    
-      if(error) {
-        return <p>{error}</p>
-      }
+  }, [filter]);
+
+  if (loading) {
+    return <CardSkleton />;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  if (invoices.length === 0) {
+    return <NotFoundComponent/>
+  }
   return (
     <div className="base-container flex flex-col gap-4">
-    {invoices.map((el, index)=> {
-        const {createdAt, invoiceId, clientName, total, status, id} = el;
+      {invoices.map((el, index) => {
+        const { createdAt, invoiceId, clientName, total, status, id } = el;
 
-      return <MyCard 
-      createdAt={createdAt} 
-      invoiceId={invoiceId} 
-      clientName={clientName}
-      total={total}
-      status={status} 
-      key={id}/>
-    })}
-  </div>
-  )
+        return (
+          <MyCard
+            createdAt={createdAt}
+            invoiceId={invoiceId}
+            clientName={clientName}
+            total={total}
+            status={status}
+            key={id}
+            id={idd}
+          />
+        );
+      })}
+    </div>
+  );
 }
