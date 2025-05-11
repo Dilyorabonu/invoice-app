@@ -6,6 +6,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+
 import { useEffect, useState } from "react";
 import { buttonVariants } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
@@ -71,10 +80,22 @@ export default function Header() {
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button>
-          <PlusCircleIcon />
-          New Invoice
-        </Button>
+
+        <Sheet>
+          <SheetTrigger className={buttonVariants({variant: "default"})}>
+              <PlusCircleIcon />
+              New Invoice
+          </SheetTrigger>
+          <SheetContent className="ml-[72px]" side="left">
+            <SheetHeader>
+              <SheetTitle>Are you absolutely sure?</SheetTitle>
+              <SheetDescription>
+                This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers.
+              </SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
       </div>
     </header>
   );
