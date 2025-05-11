@@ -16,7 +16,6 @@ export default function ThemesToggle() {
       localStorage.getItem("theme" || "default")
     )
 
-
     function handleTheme(type, mode) {
       const html = document.documentElement;
       let isDark;
@@ -53,11 +52,12 @@ export default function ThemesToggle() {
     }, [])
 
   return (
-    <div className="flex gap-5">
+    <div className="flex gap-5 
+    md:flex-col md:items-start">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="secondary">
-              Change theme
+              <span className="md:hidden">Change theme</span>
               <ArrowBigDown />
             </Button>
           </DropdownMenuTrigger>
@@ -67,10 +67,11 @@ export default function ThemesToggle() {
             <div className="flex flex-col">
              {themes.map((el, index) => {
                 return (
-                    <Button key={index}
-                onClick={() => {
+                    <Button
+                     key={index}
+                     onClick={() => {
                     handleTheme(el, "theme");
-                }}
+                  }}
                 className={"justify-start"}
                  variant="ghost">{el}</Button>
                 )
@@ -78,7 +79,9 @@ export default function ThemesToggle() {
             </div>
           </DropdownMenuContent>
     </DropdownMenu>
-    <Button onClick={() => {
+    <Button 
+    size={"icon"}
+    onClick={() => {
       handleTheme(theme, "dark")
     }}>
         {dark ? <Sun/> : <Moon/>}

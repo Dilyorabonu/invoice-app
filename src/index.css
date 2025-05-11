@@ -51,6 +51,6 @@
   }
 
   .base-container{
-    @apply container mx-auto;
+    @apply w-full max-w-[730px] mx-auto pr-5 pl-5 md:pl-20;
   }
 }

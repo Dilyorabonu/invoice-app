@@ -5,9 +5,8 @@ import Sidebar from "../components/Sidebar";
 export default function Home() {
   return (
     <>
-      {/* <Header />
-      <InvoiceCards /> */}
-      <Sidebar/>
+      <Header />
+      {/* <InvoiceCards /> */}
     </>
   );
 }

@@ -30,7 +30,7 @@ export default function Header() {
   useEffect(() => {
     const query = queryGenerator(items);
     setFilter(query);
-  }, [items]);
+  }, [JSON.stringify(items)]);
 
   return (
     <header>
