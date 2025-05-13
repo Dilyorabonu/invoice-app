@@ -6,11 +6,11 @@ import Sidebar from "../components/Sidebar";
 export default function Home() {
   return (
     <>
-      {/* <Header />
-      <InvoiceCards /> */}
-      <div className="container ml-[200px] mr-auto">
+      <Header />
+      <InvoiceCards />
+      {/* <div className="container ml-[200px] mr-auto">
       <ItemList/>
-      </div>
+      </div> */}
     </>
   );
 }

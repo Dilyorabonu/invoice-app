@@ -21,6 +21,7 @@ import { Checkbox } from "./ui/checkbox";
 import { ArrowBigDown, PlusCircleIcon } from "lucide-react";
 import { useAppStore } from "../lib/zustand";
 import { queryGenerator } from "../lib/utils";
+import Form from "./Form";
 
 export default function Header() {
   const { setFilter } = useAppStore();
@@ -82,18 +83,19 @@ export default function Header() {
         </DropdownMenu>
 
         <Sheet>
-          <SheetTrigger className={buttonVariants({variant: "default"})}>
-              <PlusCircleIcon />
-              New Invoice
+          <SheetTrigger className={buttonVariants({ variant: "default" })}>
+            <PlusCircleIcon />
+            New Invoice
           </SheetTrigger>
-          <SheetContent className="ml-[72px]" side="left">
-            <SheetHeader>
+          <SheetContent
+            className="ml-[72px] min-w-[calc(80%-72px)]
+            min-h-[calc(100%-56px)] overflow-y-scroll"
+            side="left"
+          >
+            <SheetHeader className="sticky top-0 w-full bg-white border-b">
               <SheetTitle>Are you absolutely sure?</SheetTitle>
-              <SheetDescription>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
-              </SheetDescription>
             </SheetHeader>
+            <Form />
           </SheetContent>
         </Sheet>
       </div>
